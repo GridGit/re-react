@@ -6,10 +6,14 @@ import * as serviceWorker from './serviceWorker';
 
 
 class Title extends Component {
+    handleClickOnTitle(e) {
+        console.log('click title', '');
+        console.log(e.target.innerHTML, '');
+    }
     render() {
         return (
             <div>
-                <h1>mini book</h1>
+                <h1 onClick={this.handleClickOnTitle}>mini book</h1>
             </div>
         )
     }
