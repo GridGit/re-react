@@ -4,59 +4,60 @@ import './index.css';
 // import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-
-class Title extends Component {
-    handleClickOnTitle(e) {
-        console.log('click title', '');
-        console.log(e.target.innerHTML, '');
+class LikeButton extends Component {
+    static defaultProps = {
+        likedText: '取消',
+        unlikedText: '点赞'
     }
-    render() {
-        return (
-            <div>
-                <h1 onClick={this.handleClickOnTitle}>mini book</h1>
-            </div>
-        )
-    }
-}
 
-class Header extends Component {
-    render() {
-        return (
-            <div>
-                <Title />
-                <h2>this is a Header</h2>
-            </div>
-        )
+    constructor() {
+        super();
+        this.state = {isLiked: false}        
     }
-}
 
-class Main extends Component {
-    render() {
-        return (
-            <div>
-                <h2>this is main content</h2>
-            </div>
-        )
+    handleClickOnLikeButton() {
+        this.setState({
+            isLiked: !this.state.isLiked
+        })
     }
-}
 
-class Footer extends Component {
     render() {
+        // const likeText = this.props.likeText || '取消';
+        // const unlikeText = this.props.unlikeText || '点赞';
+        // const wordings = this.props.wordings || {
+        //     likeText: '取消',
+        //     unlikeText: '赞'
+        // }
         return (
-            <div>
-                <h2>this is Footer</h2>
-            </div>
+            <button onClick={this.handleClickOnLikeButton.bind(this)}>
+                {this.state.isLiked ? this.props.likedText : this.props.unlikedText} 👍
+            </button>
         )
     }
 }
 
 class Index extends Component {
+    constructor() {
+        super()
+        this.state = {
+            likedText: '已赞',
+            unlikedText: '赞'
+        }
+    }    
+    handleClickOnChange () {
+        this.setState({
+          likedText: '取消',
+          unlikedText: '点赞'
+        })
+    }
+
     render() {
         return (
             <div>
-                <Header></Header>
-                <Main></Main>
-                <Footer></Footer>
+                <LikeButton  likedText={this.state.likedText} unlikedText={this.state.unlikedText}></LikeButton>
+                <button onClick={this.handleClickOnChange.bind(this)}>
+                    修改 wordings
+                </button>
             </div>
         )
     }
@@ -65,7 +66,7 @@ class Index extends Component {
 ReactDOM.render(
   <React.StrictMode>
     {/* <App /> */}
-    <Index />
+    <Index/>
   </React.StrictMode>,
   document.getElementById('root')
 );
