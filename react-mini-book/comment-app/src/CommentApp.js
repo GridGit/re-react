@@ -39,6 +39,7 @@ class Clock extends Component {
     componentWillUnmount () {
         clearInterval(this.timer)
     }
+    
     render () {
         return (
             <div>
@@ -50,7 +51,7 @@ class Clock extends Component {
         )
     }
   }
-
+console.log(Header, Clock)
 
 class CommentApp extends Component {
     constructor () {
@@ -61,6 +62,22 @@ class CommentApp extends Component {
             isShowClock: true
         }
     }
+    componentWillMount() {
+        this._loadComments();
+    }
+
+    _loadComments() {
+        let comments = localStorage.getItem('comments');
+        if(comments) {
+            comments = JSON.parse(comments);
+            this.setState({ comments });
+        }
+    }
+
+    _saveComments(comments) {
+        localStorage.setItem('comments', JSON.stringify(comments))
+    }
+
     handleShowOrHide () {
         this.setState({
           isShowHeader: !this.state.isShowHeader
@@ -77,15 +94,25 @@ class CommentApp extends Component {
         if (!comment) return;
         if (!comment.username) return alert('请输入用户名');
         if (!comment.content) return alert('请输入评论内容');
-        this.state.comments.push(comment)
+        let comments = this.state.comments;
+        comments.push(comment)
         this.setState({
-            comments: this.state.comments
+            comments: comments
         });
+        this._saveComments(comments);
     }
+    handleDeleteComment (index) {
+        const comments = this.state.comments
+        comments.splice(index, 1)
+        this.setState({ comments })
+        this._saveComments(comments)
+        // console.log(index)
+    }
+
     render() {
         return (
             <div className="wrapper">
-                {this.state.isShowHeader ? <Header /> : null}
+                {/* {this.state.isShowHeader ? <Header /> : null}
                 
                 <button onClick={this.handleShowOrHide.bind(this)}>
                     显示或者隐藏标题
@@ -93,9 +120,9 @@ class CommentApp extends Component {
                 {this.state.isShowClock ? <Clock /> : null}
                 <button onClick={this.handleShowOrHideClock.bind(this)}>
                     显示或者隐藏时钟
-                </button>
+                </button> */}
                 <CommentInput onSubmit={this.handleSubmitComment.bind(this)} />
-                <CommentList comments={this.state.comments}></CommentList>
+                <CommentList onDeleteComment={this.handleDeleteComment.bind(this)} comments={this.state.comments}></CommentList>
             </div>
         )
     }
