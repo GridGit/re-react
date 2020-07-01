@@ -36,6 +36,27 @@ class LikeButton extends Component {
     }
 }
 
+const users = [
+    { username: 'Jerry', age: 21, gender: 'male' },
+    { username: 'Tomy', age: 22, gender: 'male' },
+    { username: 'Lily', age: 19, gender: 'female' },
+    { username: 'Lucy', age: 20, gender: 'female' }
+  ]
+  
+class User extends Component {
+    
+    render() {
+        const {user} = this.props;
+        return (
+            <div>
+                <span>姓名：{user.username}</span>
+                <span>年龄：{user.age}</span>
+                <span>性别：{user.gender}</span>
+            </div>
+        )
+    }
+}  
+
 class Index extends Component {
     constructor() {
         super()
@@ -58,6 +79,9 @@ class Index extends Component {
                 <button onClick={this.handleClickOnChange.bind(this)}>
                     修改 wordings
                 </button>
+                <div>
+                    {users.map((user, i) => <User key={i} user={user}/>)}
+                </div>
             </div>
         )
     }
