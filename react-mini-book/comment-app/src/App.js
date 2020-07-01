@@ -2,6 +2,7 @@ import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import CommentApp from './CommentApp'
+// import Index from './ContextComponent'
 // import Card from './Card'
 
 
@@ -14,6 +15,7 @@ function App() {
             订阅：<input />
         </Card>         */}
         <CommentApp></CommentApp>
+        {/* <Index></Index> */}
     </div>
   );
 }
