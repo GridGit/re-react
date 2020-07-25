@@ -3,7 +3,6 @@
 // import './index.css';
 // import App from './App';
 // import * as serviceWorker from './serviceWorker';
-
 // ReactDOM.render(
 //   <React.StrictMode>
 //     <App />
@@ -26,7 +25,6 @@
 //         color: 'blue'
 //     }
 // }
-
 // let newAppState = { // 新建一个 newAppState
 //     ...appState, // 复制 appState 里面的内容
 //     title: { // 用一个新的对象覆盖原来的 title 属性
